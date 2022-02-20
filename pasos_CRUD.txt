@@ -1,0 +1,22 @@
+1 CREAR EL MODELO Y MIGRACION
+php artisan make:model Company -m
+#modificar la migracion y fillable en el modelo
+
+2 CREAR EL CONTROLADOR
+php artisan make:controller CompanyController --api --resource --model=Company
+
+3  CREAR LA ROUTA EN ROUTES API
+Route::apiResource('company', CompanyController::class);
+
+4 CREAR EL RECURSO
+php artisan make:resource CompanyResource
+# En el index de companycontroller se agrega 
+return CompanyResource::collection(Company::all());
+
+5 CREAR EL REQUEST
+php artisan make:request CompanyRequest
+#agregar las reglas quen el request
+#en el store de company controller agregar CompanyRequest
+#en el metodo store agregar
+$company = Company::create($request->validated());
+return new CompanyResource($company);
